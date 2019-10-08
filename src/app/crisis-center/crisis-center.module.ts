@@ -5,7 +5,7 @@ import { FormsModule }    from '@angular/forms';
 import { CrisisListComponent }    from './crisis-list/crisis-list.component';
 import { CrisisDetailComponent }  from './crisis-detail/crisis-detail.component';
 
-import { CrisisRoutingModule } from './crisis-routing.module';
+import { CrisisCenterRoutingModule } from './crisis-routing.module';
 import { CrisisCenterComponent } from './crisis-center/crisis-center.component';
 import { CrisisCenterHomeComponent } from './crisis-center-home/crisis-center-home.component';
 
@@ -13,7 +13,7 @@ import { CrisisCenterHomeComponent } from './crisis-center-home/crisis-center-ho
   imports: [
     CommonModule,
     FormsModule,
-    CrisisRoutingModule
+    CrisisCenterRoutingModule
   ],
   declarations: [
     CrisisListComponent,
