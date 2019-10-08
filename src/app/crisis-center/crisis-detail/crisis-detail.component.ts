@@ -11,9 +11,9 @@ import { Crisis } from '../crisis';
   templateUrl: './crisis-detail.component.html',
   styleUrls: ['./crisis-detail.component.css']
 })
-export class HeroDetailComponent implements OnInit {
-  crisis$: Observable<Crisis>;
-
+export class CrisisDetailComponent implements OnInit {
+  crisis: Crisis;
+  editName: string;
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -21,17 +21,19 @@ export class HeroDetailComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.crisis$ = this.route.paramMap.pipe(
-      switchMap((params: ParamMap) =>
-        this.service.getCrisis(params.get('id')))
-    );
+    this.route.data
+      .subscribe((data: { crisis: Crisis }) => {
+        this.editName = data.crisis.name;
+        this.crisis = data.crisis;
+      });
   }
 
-  gotoHeroes(crisis: crisis) {
-    let crisisId = crisis ? crisis.id : null;
+  gotoCrises() {
+    let crisisId = this.crisis ? this.crisis.id : null;
     // Pass along the crisis id if available
-    // so that the crisisList component can select that crisis.
-    // Include a junk 'foo' property for fun.
-    this.router.navigate(['/heroes', { id: crisisId, foo: 'foo' }]);
+    // so that the CrisisListComponent can select that crisis.
+    // Add a totally useless `foo` parameter for kicks.
+    // Relative navigation back to the crises
+    this.router.navigate(['../', { id: crisisId, foo: 'foo' }], { relativeTo: this.route });
   }
 }
