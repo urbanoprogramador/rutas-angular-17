@@ -3,29 +3,29 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
-import { Hero } from '../hero';
-import { HeroService } from '../hero.service';
+import { Hero } from '../crisis';
+import { CrisisService } from '../crisis.service';
 
 @Component({
   selector: 'app-crisis-list',
   templateUrl: './crisis-list.component.html',
   styleUrls: ['./crisis-list.component.css']
 })
-export class CrisisHeroListComponent implements OnInit {
+export class CrisisListComponent implements OnInit {
   crisis$: Observable<Hero[]>;
   selectedId: number;
 
   constructor(
-    private service: HeroService,
+    private service: CrisisService,
     private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
-    this.heroes$ = this.route.paramMap.pipe(
+    this.crisis$ = this.route.paramMap.pipe(
       switchMap(params => {
         // (+) before `params.get()` turns the string into a number
         this.selectedId = +params.get('id');
-        return this.service.getHeroes();
+        return this.service.getHero();
       })
     );
   }
