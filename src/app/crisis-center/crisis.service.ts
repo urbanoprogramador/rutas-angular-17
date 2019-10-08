@@ -14,15 +14,11 @@ export class CrisisService {
 
   constructor(private messageService: MessageService) { }
 
-  getCrisis(): Observable<Crisis[]> {
-    // TODO: send the message _after_ fetching the heroes
-    this.messageService.add('HeroService: fetched heroes');
-    return of(CRISIS);
-  }
-    getHero(id: number | string) {
-    return this.getCrisis().pipe(
-      // (+) before `id` turns the string into a number
-      map((heroes: Crisis[]) => heroes.find(Crisis => Crisis.id === +id))
+  getCrises() { return this.crises$; }
+
+  getCrisis(id: number | string) {
+    return this.getCrises().pipe(
+      map(crises => crises.find(crisis => crisis.id === +id))
     );
   }
 }

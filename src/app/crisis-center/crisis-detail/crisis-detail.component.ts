@@ -3,8 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { HeroService }  from '../hero.service';
-import { Hero } from '../hero';
+import { CrisisService } from '../crisis.service';
+import { Crisis } from '../crisis';
 
 @Component({
   selector: 'app-crisis-detail',
@@ -12,18 +12,18 @@ import { Hero } from '../hero';
   styleUrls: ['./crisis-detail.component.css']
 })
 export class HeroDetailComponent implements OnInit {
-  crisis$: Observable<Hero>;
+  crisis$: Observable<Crisis>;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private service: HeroService
+    private service: CrisisService
   ) {}
 
   ngOnInit() {
     this.crisis$ = this.route.paramMap.pipe(
       switchMap((params: ParamMap) =>
-        this.service.getHero(params.get('id')))
+        this.service.getCrisis(params.get('id')))
     );
   }
 
@@ -32,6 +32,6 @@ export class HeroDetailComponent implements OnInit {
     // Pass along the crisis id if available
     // so that the crisisList component can select that crisis.
     // Include a junk 'foo' property for fun.
-    this.router.navigate(['/heroes', { id: heroId, foo: 'foo' }]);
+    this.router.navigate(['/heroes', { id: crisisId, foo: 'foo' }]);
   }
 }
