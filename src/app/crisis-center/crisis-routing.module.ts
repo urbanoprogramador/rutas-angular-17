@@ -1,20 +1,40 @@
 import { NgModule }             from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { HeroListComponent }    from './crisis-list/crisis-list.component';
-import { HeroDetailComponent }  from './crisis-detail/crisis-detail.component';
+import { CrisisCenterHomeComponent } from './crisis-center-home/crisis-center-home.component';
+import { CrisisListComponent }       from './crisis-list/crisis-list.component';
+import { CrisisCenterComponent }     from './crisis-center/crisis-center.component';
+import { CrisisDetailComponent }     from './crisis-detail/crisis-detail.component';
 
-const heroesRoutes: Routes = [
-  { path: 'heroes',  component: HeroListComponent, data: { animation: 'heroes' } },
-  { path: 'hero/:id', component: HeroDetailComponent, data: { animation: 'hero' } }
+const crisisCenterRoutes: Routes = [
+  {
+    path: 'crisis-center',
+    component: CrisisCenterComponent,
+    children: [
+      {
+        path: '',
+        component: CrisisListComponent,
+        children: [
+          {
+            path: ':id',
+            component: CrisisDetailComponent
+          },
+          {
+            path: '',
+            component: CrisisCenterHomeComponent
+          }
+        ]
+      }
+    ]
+  }
 ];
 
 @NgModule({
   imports: [
-    RouterModule.forChild(heroesRoutes)
+    RouterModule.forChild(crisisCenterRoutes)
   ],
   exports: [
     RouterModule
   ]
 })
-export class HeroesRoutingModule { }
+export class CrisisCenterRoutingModule { }
