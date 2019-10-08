@@ -15,8 +15,8 @@ import { MessageService } from './message.service';
   imports: [
     BrowserModule,
     FormsModule,
-    HeroesModule,
     BrowserAnimationsModule,
+    HeroesModule,
     AppRoutingModule
   ],
   declarations: [

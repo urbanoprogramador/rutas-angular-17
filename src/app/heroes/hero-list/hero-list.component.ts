@@ -12,15 +12,15 @@ import { HeroService } from '../hero.service';
   styleUrls: ['./hero-list.component.css']
 })
 export class HeroListComponent implements OnInit {
+  heroes$: Observable<Hero[]>;
+  selectedId: number;
 
-  selectedHero: Hero;
-
-  heroes: Hero[];
-
-  constructor(private heroService: HeroService,    private route: ActivatedRoute) { }
+  constructor(
+    private service: HeroService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit() {
-    this.getHeroes();
     this.heroes$ = this.route.paramMap.pipe(
       switchMap(params => {
         // (+) before `params.get()` turns the string into a number
@@ -30,14 +30,7 @@ export class HeroListComponent implements OnInit {
     );
   }
 
-  onSelect(hero: Hero): void {
-    this.selectedHero = hero;
-  }
 
-  getHeroes(): void {
-    this.heroService.getHeroes()
-        .subscribe(heroes => this.heroes = heroes);
-  }
 }
 
 
