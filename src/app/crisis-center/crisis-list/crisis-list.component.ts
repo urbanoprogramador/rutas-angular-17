@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { Component, OnInit }  from '@angular/core';
+import { ActivatedRoute }     from '@angular/router';
 
-import { Crisis } from '../crisis';
-import { CrisisService } from '../crisis.service';
+import { CrisisService }  from '../crisis.service';
+import { Crisis }         from '../crisis';
+import { Observable }     from 'rxjs';
+import { switchMap }      from 'rxjs/operators';
 
 @Component({
   selector: 'app-crisis-list',
@@ -12,25 +12,22 @@ import { CrisisService } from '../crisis.service';
   styleUrls: ['./crisis-list.component.css']
 })
 export class CrisisListComponent implements OnInit {
-  crisis$: Observable<Crisis[]>;
+  crises$: Observable<Crisis[]>;
   selectedId: number;
 
   constructor(
     private service: CrisisService,
     private route: ActivatedRoute
-  ){}
+  ) {}
 
   ngOnInit() {
-    this.crisis$ = this.route.paramMap.pipe(
+    this.crises$ = this.route.paramMap.pipe(
       switchMap(params => {
-        // (+) before `params.get()` turns the string into a number
         this.selectedId = +params.get('id');
         return this.service.getCrises();
       })
     );
   }
-
-
 }
 
 
