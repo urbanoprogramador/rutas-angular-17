@@ -1,6 +1,8 @@
 import { NgModule }       from '@angular/core';
 import { CommonModule }   from '@angular/common';
+import { BrowserModule }  from '@angular/platform-browser';
 import { FormsModule }    from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent }            from './app.component';
 import { PageNotFoundComponent }   from './page-not-found/page-not-found.component';
@@ -14,8 +16,10 @@ import { CrisisCenterModule }      from './crisis-center/crisis-center.module';
   imports: [
     CommonModule,
     FormsModule,
+    BrowserModule,
+    BrowserAnimationsModule,
     HeroesModule,
-    CrisisCenterModule,
+    CrisisCenterModule, 
     AppRoutingModule
   ],
   declarations: [
