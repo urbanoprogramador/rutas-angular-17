@@ -1,9 +1,8 @@
-import { switchMap } from 'rxjs/operators';
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { CrisisService } from '../crisis.service';
+import { DialogService }  from '../../dialog.service';
 import { Crisis } from '../crisis';
 
 @Component({
@@ -17,7 +16,7 @@ export class CrisisDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private service: CrisisService
+    public dialogService: DialogService
   ) {}
 
   ngOnInit() {
@@ -26,11 +25,28 @@ export class CrisisDetailComponent implements OnInit {
         console.log(data);
         this.editName = data.crisis.name;
         this.crisis = data.crisis;
-      });
+      }); 
+  }
+  canDeactivate(): Observable<boolean> | boolean {
+  // Allow synchronous navigation (`true`) if no crisis or the crisis is unchanged
+    if (!this.crisis || this.crisis.name === this.editName) {
+      return true;
+    }
+    // Otherwise ask the user with the dialog service and return its
+    // observable which resolves to true or false when the user decides
+    return this.dialogService.confirm('Discard changes?');
   }
 
   gotoCrises() {
     let crisisId = this.crisis ? this.crisis.id : null;
     this.router.navigate(['../', { id: crisisId, foo: 'foo' }], { relativeTo: this.route });
+  }
+  cancel() {
+    this.gotoCrises();
+  }
+
+  save() {
+    this.crisis.name = this.editName;
+    this.gotoCrises();
   }
 }

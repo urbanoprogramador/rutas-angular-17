@@ -15,6 +15,7 @@ import { AuthModule } from "./auth/auth.module";
 import { CrisisCenterModule } from "./crisis-center/crisis-center.module";
 import { ComposeMessageComponent } from "./compose-message/compose-message.component";
 import { AuthService } from "./auth/auth.service";
+import { DialogService } from './dialog.service';
 
 @NgModule({
   imports: [
@@ -34,6 +35,6 @@ import { AuthService } from "./auth/auth.service";
     ComposeMessageComponent
   ],
   bootstrap: [AppComponent],
-  providers: [AuthService]
+  providers: [AuthService, DialogService]
 })
 export class AppModule {}
