@@ -3,7 +3,9 @@ import {
   CanActivate,
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
-  Router
+  Router,
+  Route,
+  canLoad
 } from "@angular/router";
 
 import { AuthService } from "./auth.service";
@@ -13,6 +15,11 @@ import { AuthService } from "./auth.service";
 })
 export class AuthGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
+  canLoad(route: Route): boolean {
+  let url = `/${route.path}`;
+
+  return this.checkLogin(url);
+}
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
