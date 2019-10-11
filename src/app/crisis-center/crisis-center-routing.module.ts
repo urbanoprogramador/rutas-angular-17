@@ -22,7 +22,8 @@ const crisisCenterRoutes: Routes = [
             canDeactivate: [CanDeactivateGuard],
             component: CrisisDetailComponent,
             resolve: {
-              crisis: CrisisDetailResolverService
+              crisis: CrisisDetailResolverService,
+              roimar:CrisisDetailResolverService
             }
           },
           {

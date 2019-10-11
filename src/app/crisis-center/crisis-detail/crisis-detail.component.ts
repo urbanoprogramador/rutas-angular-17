@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { DialogService }  from '../../dialog.service';
 import { Crisis } from '../crisis';
 
+import { mergeMap, take }         from 'rxjs/operators';
+
 @Component({
   selector: 'app-crisis-detail',
   templateUrl: './crisis-detail.component.html',
@@ -22,10 +24,16 @@ export class CrisisDetailComponent implements OnInit {
   ngOnInit() {
     this.route.data
       .subscribe((data: { crisis: Crisis }) => {
-        console.log(data);
         this.editName = data.crisis.name;
         this.crisis = data.crisis;
-      }); 
+      });
+    this.route.params.forEach((urlParams) => {
+        console.log(urlParams)
+    });
+    this.route.queryParams.subscribe(
+      (d)=>{
+      console.log(d);
+    })
   }
   canDeactivate(): Observable<boolean> | boolean {
   // Allow synchronous navigation (`true`) if no crisis or the crisis is unchanged

@@ -1,7 +1,7 @@
   <ul class="crises">
     <li *ngFor="let crisis of crises$ | async"
       [class.selected]="crisis.id === selectedId">
-      <a [routerLink]="[crisis.id]">
+      <a [routerLink]="[crisis.id]" [queryParams]="{debug: crisis.name}">
         <span class="badge">{{ crisis.id }}</span>{{ crisis.name }}
       </a>
     </li>
