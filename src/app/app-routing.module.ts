@@ -3,7 +3,7 @@ import { RouterModule, Routes } from "@angular/router";
 
 import { PageNotFoundComponent } from "./page-not-found/page-not-found.component";
 import { ComposeMessageComponent } from "./compose-message/compose-message.component";
-import { AuthGuard }                          from './auth/auth.guard';
+import { AuthGuard } from "./auth/auth.guard";
 
 const appRoutes: Routes = [
   {
@@ -11,6 +11,14 @@ const appRoutes: Routes = [
     loadChildren: () =>
       import("./admin/admin.module").then(mod => mod.AdminModule),
     canLoad: [AuthGuard]
+  },
+  {
+    path: "crisis-center",
+    loadChildren: () =>
+      import("./crisis-center/crisis-center.module").then(
+        mod => mod.CrisisCenterModule
+      ),
+    data: { preload: true }
   },
   {
     path: "compose",
@@ -25,7 +33,10 @@ const appRoutes: Routes = [
   imports: [
     RouterModule.forRoot(
       appRoutes,
-      { enableTracing: false } // <-- debugging purposes only
+      {
+        enableTracing: false,useHash:true
+        //preloadingStrategy: PreloadAllModules
+      } // <-- debugging purposes only
     )
   ],
   exports: [RouterModule]
